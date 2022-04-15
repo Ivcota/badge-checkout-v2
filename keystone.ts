@@ -22,7 +22,7 @@ export default withAuth(
       provider: process.env.NODE_ENV === "production" ? "postgresql" : "sqlite",
       url:
         process.env.NODE_ENV === "production"
-          ? (process.env.DB as string)
+          ? (process.env.DATABASE_URL as string)
           : "file:./keystone.db",
     },
     // This config allows us to set up features of the Admin UI https://keystonejs.com/docs/apis/config#ui
