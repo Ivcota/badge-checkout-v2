@@ -1,2 +1,2 @@
-web: npm postinstall --fix
-web: npm start
+web: yarn postinstall
+web: yarn start

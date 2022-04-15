@@ -13,6 +13,7 @@ import { lists } from "./schema";
 
 // Keystone auth is configured separately - check out the basic auth setup we are importing from our auth file.
 import { withAuth, session } from "./auth";
+import { DATABASE_URL, PORT } from "./config";
 
 export default withAuth(
   // Using the config function helps typescript guide you to the available options.
@@ -20,9 +21,10 @@ export default withAuth(
     // the db sets the database provider - we're using sqlite for the fastest startup experience
     db: {
       provider: process.env.NODE_ENV === "production" ? "postgresql" : "sqlite",
+      useMigrations: true,
       url:
         process.env.NODE_ENV === "production"
-          ? (process.env.DATABASE_URL as string)
+          ? (DATABASE_URL as string)
           : "file:./keystone.db",
     },
     // This config allows us to set up features of the Admin UI https://keystonejs.com/docs/apis/config#ui
@@ -32,5 +34,8 @@ export default withAuth(
     },
     lists,
     session,
+    server: {
+      port: PORT,
+    },
   })
 );

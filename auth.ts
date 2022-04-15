@@ -11,6 +11,7 @@ import { createAuth } from "@keystone-6/auth";
 
 // See https://keystonejs.com/docs/apis/session#session-api for the session docs
 import { statelessSessions } from "@keystone-6/core/session";
+import { SESSION_SECRET } from "./config";
 
 let sessionSecret = process.env.SESSION_SECRET;
 
@@ -48,7 +49,7 @@ let sessionMaxAge = 60 * 60 * 24 * 30; // 30 days
 // This defines how sessions should work. For more details, check out: https://keystonejs.com/docs/apis/session#session-api
 const session = statelessSessions({
   maxAge: sessionMaxAge,
-  secret: sessionSecret!,
+  secret: SESSION_SECRET! || sessionSecret,
 });
 
 export { withAuth, session };
